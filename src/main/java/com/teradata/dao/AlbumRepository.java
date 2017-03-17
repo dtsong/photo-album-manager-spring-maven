@@ -1,4 +1,4 @@
-package com.teradata.repository;
+package com.teradata.dao;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

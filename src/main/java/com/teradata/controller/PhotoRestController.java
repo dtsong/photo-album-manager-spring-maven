@@ -2,8 +2,8 @@ package com.teradata.controller;
 
 
 import com.teradata.model.Photo;
-import com.teradata.repository.AlbumRepository;
-import com.teradata.repository.PhotoRepository;
+import com.teradata.dao.AlbumRepository;
+import com.teradata.dao.PhotoRepository;
 import com.teradata.exception.AlbumNotFoundException;
 import com.teradata.resource.PhotoResource;
 import org.springframework.hateoas.Link;
