@@ -40,6 +40,8 @@ public class Photo {
         return id;
     }
 
+    public String getTitle() { return title; }
+
     public String getUrl() {
         return url;
     }
