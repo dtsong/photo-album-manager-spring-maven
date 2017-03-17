@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class AlbumNotFoundException extends RuntimeException {
 
-    public AlbumNotFoundException(Long albumId) {
+    public AlbumNotFoundException(String albumId) {
         super("could not find album '" + albumId + "'.");
     }
 }

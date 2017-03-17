@@ -28,17 +28,17 @@ public class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    Collection<Photo> readPhotos(@PathVariable Long albumId) {
-        this.validateAlbum(albumId);
-        return this.photoRepository.findByAlbumId(albumId);
+    Collection<Photo> readPhotos(@PathVariable String albumTitle) {
+        this.validateAlbum(albumTitle);
+        return this.photoRepository.findByAlbumTitle(albumTitle);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable Long albumId, @RequestBody Photo input) {
+    ResponseEntity<?> add(@PathVariable String albumId, @RequestBody Photo input) {
         this.validateAlbum(albumId);
 
         return this.albumRepository
-                .findById(albumId)
+                .findByTitle(albumId)
                 .map(album -> {
                     Photo result = photoRepository.save(new Photo(album, input.title, input.url, input.thumbnailUrl));
 
@@ -52,14 +52,14 @@ public class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{photoId}")
-    Photo readPhoto(@PathVariable Long albumId, @PathVariable Long photoId) {
+    Photo readPhoto(@PathVariable String albumId, @PathVariable Long photoId) {
         this.validateAlbum(albumId);
         return this.photoRepository.findOne(photoId);
     }
 
 
-    private void validateAlbum(Long albumId) {
-        this.albumRepository.findById(albumId).orElseThrow(
-                () -> new AlbumNotFoundException(albumId));
+    private void validateAlbum(String albumTitle) {
+        this.albumRepository.findByTitle(albumTitle).orElseThrow(
+                () -> new AlbumNotFoundException(albumTitle));
     }
 }

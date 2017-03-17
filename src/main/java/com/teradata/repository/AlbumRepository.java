@@ -7,5 +7,5 @@ import com.teradata.model.Album;
 import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, Long> {
-    Optional<Album> findById(Long id);
+    Optional<Album> findByTitle(String title);
 }
