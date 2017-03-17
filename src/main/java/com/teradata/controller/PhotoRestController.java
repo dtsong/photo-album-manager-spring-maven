@@ -30,7 +30,7 @@ public class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Photo> readPhotos(@PathVariable String albumTitle) {
+    public Resources<PhotoResource> readPhotos(@PathVariable String albumTitle) {
         this.validateAlbum(albumTitle);
 
         List<PhotoResource> photoResourceList = photoRepository
