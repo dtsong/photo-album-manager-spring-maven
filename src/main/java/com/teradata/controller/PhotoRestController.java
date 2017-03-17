@@ -10,7 +10,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collection;
@@ -31,7 +30,7 @@ public class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    Collection<Photo> readPhotos(@PathVariable String albumTitle) {
+    public Collection<Photo> readPhotos(@PathVariable String albumTitle) {
         this.validateAlbum(albumTitle);
 
         List<PhotoResource> photoResourceList = photoRepository
@@ -42,7 +41,7 @@ public class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable String albumId, @RequestBody Photo input) {
+    public ResponseEntity<?> add(@PathVariable String albumId, @RequestBody Photo input) {
         this.validateAlbum(albumId);
 
         return albumRepository
@@ -58,7 +57,7 @@ public class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{photoId}")
-    PhotoResource readPhoto(@PathVariable String albumId, @PathVariable Long photoId) {
+    public PhotoResource readPhoto(@PathVariable String albumId, @PathVariable Long photoId) {
         this.validateAlbum(albumId);
         return new PhotoResource(this.photoRepository.findOne(photoId));
     }
