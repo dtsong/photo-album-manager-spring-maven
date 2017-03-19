@@ -22,7 +22,7 @@ public class Application {
 	CommandLineRunner init(AlbumRepository albumRepository,
 						   PhotoRepository photoRepository) {
 		return (evt) -> Arrays.asList(
-				"Alaska Cruise, China Trip, Instagram, Wireframes".split(","))
+				"Memes, Family, Instagram, Wireframes".split(","))
 				.forEach(
 						a -> {
 							Album album = albumRepository.save(new Album(a));
