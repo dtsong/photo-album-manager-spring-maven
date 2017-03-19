@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/{albumId}/photos")
+@RequestMapping("/{albumTitle}/photos")
 public class PhotoRestController {
 
     private final PhotoRepository photoRepository;
