@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/{albumTitle}/photos")
-public class PhotoRestController {
+public class PhotoController {
 
     private final PhotoRepository photoRepository;
     private final AlbumRepository albumRepository;
 
-    PhotoRestController(PhotoRepository photoRepository,
-                        AlbumRepository albumRepository) {
+    PhotoController(PhotoRepository photoRepository,
+                    AlbumRepository albumRepository) {
         this.photoRepository = photoRepository;
         this.albumRepository = albumRepository;
     }

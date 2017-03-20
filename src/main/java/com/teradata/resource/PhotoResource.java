@@ -1,6 +1,6 @@
 package com.teradata.resource;
 
-import com.teradata.controller.PhotoRestController;
+import com.teradata.controller.PhotoController;
 import com.teradata.model.Photo;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
@@ -15,8 +15,8 @@ public class PhotoResource extends ResourceSupport {
         String albumTitle = photo.getAlbum().getTitle();
         this.photo = photo;
         this.add(new Link(photo.getUrl(), "photo-url"));
-        this.add(linkTo(PhotoRestController.class, albumTitle).withRel("photos"));
-        this.add(linkTo(methodOn(PhotoRestController.class, albumTitle)
+        this.add(linkTo(PhotoController.class, albumTitle).withRel("photos"));
+        this.add(linkTo(methodOn(PhotoController.class, albumTitle)
                         .readPhoto(albumTitle, photo.getId())).withSelfRel());
     }
 }
