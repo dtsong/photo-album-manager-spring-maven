@@ -34,6 +34,8 @@ public class Album {
         return title;
     }
 
+    public void setTitle(String title) { this.title = title; }
+
     public Album(String title) {
         this.title = title;
     }

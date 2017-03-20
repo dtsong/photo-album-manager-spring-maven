@@ -36,17 +36,19 @@ public class Photo {
         return album;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public String getTitle() { return title; }
 
-    public String getUrl() {
-        return url;
-    }
+    public String getUrl() { return url; }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
-    }
+    public String getThumbnailUrl() { return thumbnailUrl; }
+
+    public void setAlbum(Album album) { this.album = album; }
+
+    public void setTitle(String title) { this.title = title; }
+
+    public void setUrl(String url) { this.url = url; }
+
+    public void setThumbnailUrl(String thumbnailUrl) { this.thumbnailUrl = thumbnailUrl; }
 }
