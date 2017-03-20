@@ -24,12 +24,12 @@ public class APIObjectMapper {
         return albums;
     }
 
-    public Photo readPhotoJsonWithObjectMapper() throws IOException {
+    public List<Photo> readPhotoJsonWithObjectMapper() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         URL url = new URL("https://jsonplaceholder.typicode.com/photos");
-        Photo photo = objectMapper.readValue(url, Photo.class);
-        logger.info(photo.toString());
-        return photo;
+        List<Photo> photos = Arrays.asList(objectMapper.readValue(url, Photo[].class));
+        logger.info(photos.toString());
+        return photos;
     }
 
 }

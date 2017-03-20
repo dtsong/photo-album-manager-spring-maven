@@ -54,4 +54,7 @@ public class Photo {
     public void setUrl(String url) { this.url = url; }
 
     public void setThumbnailUrl(String thumbnailUrl) { this.thumbnailUrl = thumbnailUrl; }
+
+    Photo() { //jpa only
+    }
 }
