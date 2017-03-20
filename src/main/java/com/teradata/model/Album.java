@@ -24,10 +24,18 @@ public class Album {
     @JsonProperty
     private String title;
 
+    @OneToMany(mappedBy = "albumId")
+    @JsonIgnore
+    private Set<Photo> photos = new HashSet<>();
+
     public Album(Long id, Long userId, String title) {
         this.id = id;
         this.userId = userId;
         this.title = title;
+    }
+
+    public Set<Photo> getPhotos() {
+        return photos;
     }
 
     public Long getId() { return id; }
@@ -41,6 +49,13 @@ public class Album {
     public void setUserId(Long userId) { this.userId = userId; }
 
     public void setTitle(String title) { this.title = title; }
+
+    @PreRemove
+    private void preventDeleteIfPhotosAssociated() {
+        if (!photos.isEmpty()) {
+            throw new LinkedPhotosExistException(id);
+        }
+    }
 
     Album() { //jpa only
     }
