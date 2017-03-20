@@ -15,8 +15,9 @@ public class Photo {
     @JsonProperty
     private Long id;
 
-    @JsonProperty
-    private Long albumId;
+    @JsonIgnore
+    @ManyToOne
+    private Album album;
 
     @JsonProperty
     private String title;
@@ -27,13 +28,9 @@ public class Photo {
     @JsonProperty
     private String thumbnailUrl;
 
-    @JsonIgnore
-    @ManyToOne
-    private Album album;
-
-    public Photo(Long id, Long albumId, String title, String url, String thumbnailUrl) {
+    public Photo(Long id, Album album, String title, String url, String thumbnailUrl) {
         this.id = id;
-        this.albumId = albumId;
+        this.album = album;
         this.title = title;
         this.url = url;
         this.thumbnailUrl = thumbnailUrl;
@@ -41,11 +38,9 @@ public class Photo {
 
     public Long getId() { return id; }
 
-    public Long getAlbumId() {
-        return albumId;
+    public Album getAlbum() {
+        return album;
     }
-
-    public Album getAlbum() { return album; }
 
     public String getTitle() { return title; }
 
@@ -55,7 +50,7 @@ public class Photo {
 
     public void setId(Long id) { this.id = id; }
 
-    public void setAlbumId(Long albumId) { this.albumId = albumId; }
+    public void setAlbum(Album album) { this.album = album; }
 
     public void setTitle(String title) { this.title = title; }
 
