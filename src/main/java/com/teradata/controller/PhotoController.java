@@ -1,6 +1,7 @@
 package com.teradata.controller;
 
 
+import com.teradata.model.Album;
 import com.teradata.model.Photo;
 import com.teradata.dao.AlbumRepository;
 import com.teradata.dao.PhotoRepository;
@@ -30,30 +31,15 @@ public class PhotoController {
         this.albumRepository = albumRepository;
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public Photo create(@RequestBody Photo photo) {
+        return this.photoRepository.save(photo);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Photo> readPhotos(@PathVariable String albumTitle) {
         this.validateAlbum(albumTitle);
-
         return this.photoRepository.findByAlbumTitle(albumTitle);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> add(@PathVariable String albumTitle, @RequestBody Photo input) {
-        this.validateAlbum(albumTitle);
-
-        return albumRepository
-                .findByTitle(albumTitle)
-                .map(album -> {
-                    Photo photo = photoRepository.save(new Photo(input.getId(), input.getAlbumId(),
-                            input.getTitle(), input.getUrl(), input.getThumbnailUrl()));
-
-                    URI location = ServletUriComponentsBuilder
-                            .fromCurrentRequest().path("/{id}")
-                            .buildAndExpand(photo.getId()).toUri();
-
-                    return ResponseEntity.created(location).build();
-                })
-                .orElse(ResponseEntity.noContent().build());
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{id}")
