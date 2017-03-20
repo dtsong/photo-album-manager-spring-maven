@@ -28,7 +28,7 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{id}")
-    Album readAlbum(@PathVariable Long id) {
+    public Album readAlbum(@PathVariable Long id) {
         return this.albumRepository.findOne(id);
     }
 

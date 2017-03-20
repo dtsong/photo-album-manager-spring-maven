@@ -1,20 +1,15 @@
 package com.teradata.controller;
 
 
-import com.teradata.model.Album;
 import com.teradata.model.Photo;
 import com.teradata.dao.AlbumRepository;
 import com.teradata.dao.PhotoRepository;
 import com.teradata.exception.AlbumNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.util.Collection;
 
 
@@ -62,7 +57,6 @@ public class PhotoController {
     public void delete(@PathVariable Long id) {
         this.photoRepository.delete(id);
     }
-
 
     private void validateAlbum(String albumTitle) {
         this.albumRepository
