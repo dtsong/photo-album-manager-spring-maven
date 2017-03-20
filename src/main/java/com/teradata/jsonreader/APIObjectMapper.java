@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class APIObjectMapper {
 
@@ -16,14 +17,16 @@ public class APIObjectMapper {
 
     public Album readAlbumJsonWithObjectMapper() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Album album = objectMapper.readValue(new File("/resources/static/json/albums.json"), Album.class);
+        URL url = new URL("https://jsonplaceholder.typicode.com/albums");
+        Album album = objectMapper.readValue(url, Album.class);
         logger.info(album.toString());
         return album;
     }
 
     public Photo readPhotoJsonWithObjectMapper() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Photo photo = objectMapper.readValue(new File("/resources/static/json/photos.json"), Photo.class);
+        URL url = new URL("https://jsonplaceholder.typicode.com/photos");
+        Photo photo = objectMapper.readValue(url, Photo.class);
         logger.info(photo.toString());
         return photo;
     }
