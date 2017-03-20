@@ -21,7 +21,7 @@ public class Application {
 	}
 
 	@Bean
-	CommandLineRunner init() throws IOException {
+	public void init() throws IOException {
 	    APIObjectMapper objectMapper = new APIObjectMapper();
         objectMapper.readPhotoJsonWithObjectMapper();
         objectMapper.readAlbumJsonWithObjectMapper();
