@@ -14,10 +14,6 @@ import java.util.Set;
 @Entity
 public class Album {
 
-    @OneToMany(mappedBy = "album")
-    @JsonIgnore
-    private Set<Photo> photos = new HashSet<>();
-
     @Id
     @JsonProperty
     private Long id;
@@ -34,8 +30,6 @@ public class Album {
         this.title = title;
     }
 
-    public Set<Photo> getPhotos() { return photos; }
-
     public Long getId() { return id; }
 
     public Long getUserId() { return userId; }
@@ -47,12 +41,5 @@ public class Album {
     public void setUserId(Long userId) { this.userId = userId; }
 
     public void setTitle(String title) { this.title = title; }
-
-    @PreRemove
-    private void preventDeleteIfPhotosExist() {
-        if (!photos.isEmpty()) {
-            throw new LinkedPhotosExistException(id);
-        }
-    }
 
 }

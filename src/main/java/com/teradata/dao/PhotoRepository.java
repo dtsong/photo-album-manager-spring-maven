@@ -8,5 +8,5 @@ import java.util.Collection;
 
 
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
-    Collection<Photo> findByAlbumTitle(String album);
+    Collection<Photo> findByAlbumId(Long albumId);
 }

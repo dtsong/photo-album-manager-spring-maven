@@ -14,7 +14,7 @@ import java.util.Collection;
 
 
 @RestController
-@RequestMapping("/{albumTitle}/photos")
+@RequestMapping("/{albumId}/photos")
 public class PhotoController {
 
     private final PhotoRepository photoRepository;
@@ -32,14 +32,14 @@ public class PhotoController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Photo> readPhotos(@PathVariable String albumTitle) {
-        this.validateAlbum(albumTitle);
-        return this.photoRepository.findByAlbumTitle(albumTitle);
+    public Collection<Photo> readPhotos(@PathVariable Long albumId) {
+        this.validateAlbum(albumId);
+        return this.photoRepository.findByAlbumId(albumId);
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{id}")
-    public Photo readPhoto(@PathVariable String albumTitle, @PathVariable Long id) {
-        this.validateAlbum(albumTitle);
+    public Photo readPhoto(@PathVariable Long albumId, @PathVariable Long id) {
+        this.validateAlbum(albumId);
         return this.photoRepository.findOne(id);
     }
 
@@ -58,9 +58,9 @@ public class PhotoController {
         this.photoRepository.delete(id);
     }
 
-    private void validateAlbum(String albumTitle) {
+    private void validateAlbum(Long albumId) {
         this.albumRepository
-                .findByTitle(albumTitle)
-                .orElseThrow(() -> new AlbumNotFoundException(albumTitle));
+                .findById(albumId)
+                .orElseThrow(() -> new AlbumNotFoundException(albumId));
     }
 }

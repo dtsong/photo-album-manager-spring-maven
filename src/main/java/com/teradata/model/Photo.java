@@ -47,7 +47,7 @@ public class Photo {
 
     public void setId(Long id) { this.id = id; }
 
-    public void setAlbum(Long albumId) { this.albumId = albumId; }
+    public void setAlbumId(Long albumId) { this.albumId = albumId; }
 
     public void setTitle(String title) { this.title = title; }
 
