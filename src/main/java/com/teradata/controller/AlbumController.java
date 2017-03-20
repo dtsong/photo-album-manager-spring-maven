@@ -3,13 +3,14 @@ package com.teradata.controller;
 
 import com.teradata.dao.AlbumRepository;
 import com.teradata.model.Album;
+import com.teradata.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping("{username}/albums/")
+@RequestMapping("{userId}/albums/")
 public class AlbumController {
 
     private final AlbumRepository albumRepository;
@@ -19,19 +20,19 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Album> readPhotos(@PathVariable String username) {
-        this.validateUser(username);
-        return this.albumRepository.findByUsername(username);
+    public Collection<Album> readAlbums(@PathVariable Long userId) {
+        this.validateUser(userId);
+        return this.albumRepository.findAlbumsByUserId(userId);
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{albumId}")
-    Album readAlbum(@PathVariable String username, @PathVariable Long albumId) {
-        this.validateUser(username);
+    Album readAlbum(@PathVariable Long userId, @PathVariable Long albumId) {
+        this.validateUser(userId);
         return this.albumRepository.findOne(albumId);
     }
 
-    private void validateUser(String username) {
-        this.albumRepository.findByUsername(userId)
-                .orElseThrow(() -> new UserNotFoundException(username));
+    private void validateUser(Long userId) {
+        this.albumRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
     }
 }
