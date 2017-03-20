@@ -1,9 +1,9 @@
 package com.teradata.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
@@ -13,30 +13,36 @@ import java.util.Set;
 public class Album {
 
     @OneToMany(mappedBy = "album")
+    @JsonIgnore
     private Set<Photo> photos = new HashSet<>();
 
     @Id
-    @GeneratedValue
+    @JsonProperty
     private Long id;
 
-    @JsonIgnore
-    public String title;
+    @JsonProperty
+    private Long userId;
 
-    public Set<Photo> getPhotos() {
-        return photos;
-    }
+    @JsonProperty
+    private String title;
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getTitle() {
-        return title;
-    }
+    public Set<Photo> getPhotos() { return photos; }
+
+    public Long getId() { return id; }
+
+    public String getTitle() { return title; }
+
+    public Long getUserId() { return userId; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public void setUserId(Long userId) { this.userId = userId; }
 
     public void setTitle(String title) { this.title = title; }
 
-    public Album(String title) {
+    public Album(Long id, String title) {
+        this.id = id;
         this.title = title;
     }
 
