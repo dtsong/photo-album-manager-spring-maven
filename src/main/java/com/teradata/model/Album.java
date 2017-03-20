@@ -26,26 +26,24 @@ public class Album {
     @JsonProperty
     private String title;
 
+    public Album(Long id, Long userId, String title) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+    }
 
     public Set<Photo> getPhotos() { return photos; }
 
     public Long getId() { return id; }
 
-    public String getTitle() { return title; }
-
     public Long getUserId() { return userId; }
+
+    public String getTitle() { return title; }
 
     public void setId(Long id) { this.id = id; }
 
     public void setUserId(Long userId) { this.userId = userId; }
 
     public void setTitle(String title) { this.title = title; }
-
-    public Album(Long id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
-    Album() {}
 
 }

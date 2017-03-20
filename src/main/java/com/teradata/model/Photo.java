@@ -5,20 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Photo {
 
-    @JsonIgnore
-    @ManyToOne
-    private Album album;
-
     @Id
     @JsonProperty
     private Long id;
+
+    @JsonProperty
+    private Long albumId;
 
     @JsonProperty
     private String title;
@@ -29,21 +27,25 @@ public class Photo {
     @JsonProperty
     private String thumbnailUrl;
 
-    Photo() {}
+    @JsonIgnore
+    @ManyToOne
+    private Album album;
 
-    public Photo(Long id, Album album, String title, String url, String thumbnailUrl) {
+    public Photo(Long id, Long albumId, String title, String url, String thumbnailUrl) {
         this.id = id;
-        this.album = album;
+        this.albumId = albumId;
         this.title = title;
         this.url = url;
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Album getAlbum() {
-        return album;
+    public Long getId() { return id; }
+
+    public Long getAlbumId() {
+        return albumId;
     }
 
-    public Long getId() { return id; }
+    public Album getAlbum() { return album; }
 
     public String getTitle() { return title; }
 
@@ -53,7 +55,7 @@ public class Photo {
 
     public void setId(Long id) { this.id = id; }
 
-    public void setAlbum(Album album) { this.album = album; }
+    public void setAlbumId(Long albumId) { this.albumId = albumId; }
 
     public void setTitle(String title) { this.title = title; }
 
