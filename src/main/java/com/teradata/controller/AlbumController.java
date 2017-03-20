@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("{userId}/albums/")
+@RequestMapping("albums")
 public class AlbumController {
 
     private final AlbumRepository albumRepository;
@@ -20,9 +20,8 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Album> readAlbums(@PathVariable Long userId) {
-        this.validateUser(userId);
-        return this.albumRepository.findAlbumsByUserId(userId);
+    public Collection<Album> readAlbums() {
+        return this.albumRepository.findAllByOrderByIdAsc();
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{albumId}")
