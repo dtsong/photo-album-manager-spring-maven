@@ -16,14 +16,14 @@ public class APIObjectMapper {
 
     public Album readAlbumJsonWithObjectMapper() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Album album = objectMapper.readValue(new File("album.json"), Album.class);
+        Album album = objectMapper.readValue(new File("/json/albums.json"), Album.class);
         logger.info(album.toString());
         return album;
     }
 
     public Photo readPhotoJsonWithObjectMapper() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Photo photo = objectMapper.readValue(new File("photo.json"), Photo.class);
+        Photo photo = objectMapper.readValue(new File("/json/photos.json"), Photo.class);
         logger.info(photo.toString());
         return photo;
     }
