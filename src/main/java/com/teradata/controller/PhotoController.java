@@ -56,10 +56,25 @@ public class PhotoController {
                 .orElse(ResponseEntity.noContent().build());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{photoId}")
-    Photo readPhoto(@PathVariable String albumTitle, @PathVariable Long photoId) {
+    @RequestMapping(method = RequestMethod.GET, value="/{id}")
+    public Photo readPhoto(@PathVariable String albumTitle, @PathVariable Long id) {
         this.validateAlbum(albumTitle);
-        return this.photoRepository.findOne(photoId);
+        return this.photoRepository.findOne(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value="/{id}")
+    public Photo update(@PathVariable Long id, @RequestBody Photo photo) {
+        Photo update = this.photoRepository.findOne(id);
+        update.setId(photo.getId());
+        update.setTitle(photo.getTitle());
+        update.setUrl(photo.getUrl());
+        update.setThumbnailUrl(photo.getThumbnailUrl());
+        return this.photoRepository.save(update);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value="/{id}")
+    public void delete(@PathVariable Long id) {
+        this.photoRepository.delete(id);
     }
 
 
