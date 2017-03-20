@@ -10,17 +10,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 public class APIObjectMapper {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public Album readAlbumJsonWithObjectMapper() throws IOException {
+    public List<Album> readAlbumJsonWithObjectMapper() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         URL url = new URL("https://jsonplaceholder.typicode.com/albums");
-        Album album = objectMapper.readValue(url, Album.class);
-        logger.info(album.toString());
-        return album;
+        List<Album> albums = Arrays.asList(objectMapper.readValue(url, Album[].class));
+        logger.info(albums.toString());
+        return albums;
     }
 
     public Photo readPhotoJsonWithObjectMapper() throws IOException {
