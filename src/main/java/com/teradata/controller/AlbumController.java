@@ -3,9 +3,10 @@ package com.teradata.controller;
 
 import com.teradata.dao.AlbumRepository;
 import com.teradata.model.Album;
-import com.teradata.exception.UserNotFoundException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
 
@@ -25,13 +26,8 @@ public class AlbumController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{albumId}")
-    Album readAlbum(@PathVariable Long userId, @PathVariable Long albumId) {
-        this.validateUser(userId);
+    Album readAlbum(@PathVariable Long albumId) {
         return this.albumRepository.findOne(albumId);
     }
 
-    private void validateUser(Long userId) {
-        this.albumRepository.findByUserId(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
-    }
 }
