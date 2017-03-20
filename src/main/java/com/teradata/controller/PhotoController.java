@@ -5,19 +5,16 @@ import com.teradata.model.Photo;
 import com.teradata.dao.AlbumRepository;
 import com.teradata.dao.PhotoRepository;
 import com.teradata.exception.AlbumNotFoundException;
-import com.teradata.resource.PhotoResource;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 
 @RestController
@@ -34,14 +31,10 @@ public class PhotoController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Resources<PhotoResource> readPhotos(@PathVariable String albumTitle) {
+    public Collection<Photo> readPhotos(@PathVariable String albumTitle) {
         this.validateAlbum(albumTitle);
 
-        List<PhotoResource> photoResourceList = photoRepository
-                                            .findByAlbumTitle(albumTitle).stream().map(PhotoResource::new)
-                                            .collect(Collectors.toList());
-
-        return new Resources<>(photoResourceList);
+        return this.photoRepository.findByAlbumTitle(albumTitle);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -54,17 +47,19 @@ public class PhotoController {
                     Photo photo = photoRepository.save(new Photo(input.getId(), input.getAlbumId(),
                             input.getTitle(), input.getUrl(), input.getThumbnailUrl()));
 
-                    Link forOnePhoto = new PhotoResource(photo).getLink("self");
+                    URI location = ServletUriComponentsBuilder
+                            .fromCurrentRequest().path("/{id}")
+                            .buildAndExpand(photo.getId()).toUri();
 
-                    return ResponseEntity.created(URI.create(forOnePhoto.getHref())).build();
+                    return ResponseEntity.created(location).build();
                 })
                 .orElse(ResponseEntity.noContent().build());
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{photoId}")
-    public PhotoResource readPhoto(@PathVariable String albumTitle, @PathVariable Long photoId) {
+    Photo readPhoto(@PathVariable String albumTitle, @PathVariable Long photoId) {
         this.validateAlbum(albumTitle);
-        return new PhotoResource(this.photoRepository.findOne(photoId));
+        return this.photoRepository.findOne(photoId);
     }
 
 
