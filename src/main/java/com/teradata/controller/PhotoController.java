@@ -45,13 +45,14 @@ public class PhotoController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> add(@PathVariable String albumId, @RequestBody Photo input) {
-        this.validateAlbum(albumId);
+    public ResponseEntity<?> add(@PathVariable String albumTitle, @RequestBody Photo input) {
+        this.validateAlbum(albumTitle);
 
         return albumRepository
-                .findByTitle(albumId)
+                .findByTitle(albumTitle)
                 .map(album -> {
-                    Photo photo = photoRepository.save(new Photo(album, input.title, input.url, input.thumbnailUrl));
+                    Photo photo = photoRepository.save(new Photo(input.getId(), input.getAlbumId(),
+                            input.getTitle(), input.getUrl(), input.getThumbnailUrl()));
 
                     Link forOnePhoto = new PhotoResource(photo).getLink("self");
 
@@ -61,8 +62,8 @@ public class PhotoController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{photoId}")
-    public PhotoResource readPhoto(@PathVariable String albumId, @PathVariable Long photoId) {
-        this.validateAlbum(albumId);
+    public PhotoResource readPhoto(@PathVariable String albumTitle, @PathVariable Long photoId) {
+        this.validateAlbum(albumTitle);
         return new PhotoResource(this.photoRepository.findOne(photoId));
     }
 
