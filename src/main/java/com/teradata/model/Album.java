@@ -3,6 +3,8 @@ package com.teradata.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.teradata.exception.LinkedPhotosExistException;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,7 +15,7 @@ public class Album {
 
     @Id
     @JsonProperty
-    private Long id;
+    public Long id;
 
     @JsonProperty
     private Long userId;
@@ -21,9 +23,9 @@ public class Album {
     @JsonProperty
     private String title;
 
-    @OneToMany(mappedBy = "albumId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "albumId", targetEntity = Photo.class, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Photo> photos = new HashSet<>();
+    public Set<Photo> photos = new HashSet<>();
 
     public Album(Long id, Long userId, String title) {
         this.id = id;
@@ -34,6 +36,8 @@ public class Album {
     public Set<Photo> getPhotos() {
         return photos;
     }
+
+    public void setPhotos(Set<Photo> photos) { this.photos = photos; }
 
     public Long getId() { return id; }
 

@@ -14,15 +14,17 @@ public class Photo {
     private Long id;
 
 //    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "album_id")
+//    @JoinColumn(name = "album_id", nullable = false)
 //    @JsonIgnore
 //    private Album album;
 
     @JsonProperty
-    private Long albumId;
-
-    @JsonProperty
     private String title;
+
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Album.class)
+    @JoinColumn(name="ALBUM_ID", nullable = false)
+    @JsonProperty
+    private Long albumId;
 
     @JsonProperty
     private String url;

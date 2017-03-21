@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @EnableJpaRepositories(basePackages = {"com.teradata.dao"})
 @EntityScan(basePackages = {"com.teradata.model"})
 @EnableAutoConfiguration
+@EnableTransactionManagement
 public class Application {
 
 	public static void main(String[] args) {
