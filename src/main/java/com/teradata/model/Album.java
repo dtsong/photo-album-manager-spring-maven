@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.teradata.exception.LinkedPhotosExistException;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PreRemove;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +21,7 @@ public class Album {
     @JsonProperty
     private String title;
 
-    @OneToMany(mappedBy = "albumId")
+    @OneToMany(mappedBy = "albumId", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Photo> photos = new HashSet<>();
 
