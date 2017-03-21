@@ -47,9 +47,7 @@ public class Photo {
 
     public void setId(Long id) { this.id = id; }
 
-    public Long getAlbumId() {
-        return albumId;
-    }
+    public Long getAlbumId() { return albumId; }
 
     public void setAlbumId(Long albumId) { this.albumId = albumId; }
 
