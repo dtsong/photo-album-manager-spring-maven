@@ -15,14 +15,21 @@ import javax.persistence.JoinColumn;
 @Table(name = "Photo")
 public class Photo {
 
+    /*
+     * :id: primary key for Photo
+     * :albumId: foreign key to Album
+     * :title: the Photo's title
+     * :url: the Photo's url
+     * :thumbnailUrl: the Photo's thumbnailUrl
+     *
+     * NOTE:
+     * @JsonProperty maps these fields to the APIObjectMapper
+     * such that the data will be read into these fields.
+     */
+
     @Id
     @JsonProperty
     private Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "albumId", insertable = false, updatable = false)
-    @JsonIgnore
-    private Album album;
 
     @JsonProperty
     private String title;
@@ -43,6 +50,20 @@ public class Photo {
         this.url = url;
         this.thumbnailUrl = thumbnailUrl;
     }
+
+    /* Denotes the Many-To-One relationship between Photos and Album
+     * Read-Only: Prevents duplicate mapping since model has album and albumId referring to album.id
+     * @JsonIgnore: Prevents the APIObjectMapper from mapping data to this attribute.
+     */
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "albumId", insertable = false, updatable = false)
+    @JsonIgnore
+    private Album album;
+
+    /*
+     * Getters and setters for model attributes
+     */
 
     public Album getAlbum() { return album; }
 

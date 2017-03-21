@@ -17,6 +17,16 @@ import java.util.Set;
 @Table(name = "Album")
 public class Album {
 
+    /*
+     * :id: primary key for Album
+     * :userId: foreign key to User
+     * :title: Album's title
+     *
+     * NOTE:
+     * @JsonProperty maps these fields to the APIObjectMapper
+     * such that the data will be read into these fields.
+     */
+
     @Id
     @JsonProperty
     public Long id;
@@ -27,15 +37,23 @@ public class Album {
     @JsonProperty
     private String title;
 
-    @OneToMany(mappedBy = "album", targetEntity = Photo.class, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Photo> photos = new HashSet<>();
-
     public Album(Long albumId, Long userId, String title) {
         this.id = albumId;
         this.userId = userId;
         this.title = title;
     }
+
+    /* Denotes the One-to-Many relationship between Album to Photos
+     * @JsonIgnore: Prevents the APIObjectMapper from mapping data to this attribute.
+     */
+
+    @OneToMany(mappedBy = "album", targetEntity = Photo.class, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Photo> photos = new HashSet<>();
+
+    /*
+     * Getters and setters for model attributes
+     */
 
     public Set<Photo> getPhotos() {
         return photos;
@@ -54,6 +72,12 @@ public class Album {
     public void setUserId(Long userId) { this.userId = userId; }
 
     public void setTitle(String title) { this.title = title; }
+
+    /*
+     * This is called before the Album object is removed
+     * in order to prevent delete if the Album has Photo
+     * objects associated to it.
+     */
 
     @PreRemove
     private void preventDeleteIfPhotosAssociated() {
