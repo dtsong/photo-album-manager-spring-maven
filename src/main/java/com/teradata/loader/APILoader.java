@@ -30,6 +30,11 @@ public class APILoader implements ApplicationListener<ContextRefreshedEvent> {
         this.photoRepository = photoRepository;
     }
 
+    /* Upon running "mvn spring-boot:run" to start
+     * the Application, invoke the APIObjectMapper to
+     * populate the DB with Album and Photo data.
+     */
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         try {
