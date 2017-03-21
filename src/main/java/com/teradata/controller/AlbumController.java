@@ -52,7 +52,7 @@ public class AlbumController {
         update.setUserId(album.getUserId());
         return this.albumRepository.save(update);
     }
-    
+
     /* DELETE - delete an album
      * REQUEST: DELETE /albums/{id}
      */

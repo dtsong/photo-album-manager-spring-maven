@@ -26,23 +26,35 @@ public class PhotoController {
         this.albumRepository = albumRepository;
     }
 
+    /* CREATE - create a photo
+     * REQUEST: POST /{albumId}/photos
+     */
     @RequestMapping(method = RequestMethod.POST)
     public Photo create(@RequestBody Photo photo) {
         return this.photoRepository.save(photo);
     }
 
+    /* READ - read a list of photos for an albumId
+     * REQUEST: GET /{albumId}/photos
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Photo> readPhotos(@PathVariable Long albumId) {
+    public Collection<Photo> getAllPhotos(@PathVariable Long albumId) {
         this.validateAlbum(albumId);
         return this.photoRepository.findByAlbumId(albumId);
     }
 
+    /* READ - read a specific photo
+     * REQUEST: GET /{albumId}/photos/{id}
+     */
     @RequestMapping(method = RequestMethod.GET, value="/{id}")
-    public Photo readPhoto(@PathVariable Long albumId, @PathVariable Long id) {
+    public Photo getPhotoById(@PathVariable Long albumId, @PathVariable Long id) {
         this.validateAlbum(albumId);
         return this.photoRepository.findOne(id);
     }
 
+    /* UPDATE - update a photo
+     * REQUEST: PUT /{albumId}/photos/{id}
+     */
     @RequestMapping(method = RequestMethod.PUT, value="/{id}")
     public Photo update(@PathVariable Long id, @RequestBody Photo photo) {
         Photo update = this.photoRepository.findOne(id);
@@ -53,6 +65,9 @@ public class PhotoController {
         return this.photoRepository.save(update);
     }
 
+    /* DELETE - delete a photo
+     * REQUEST: DELETE /{albumId}/photos/{id}
+     */
     @RequestMapping(method = RequestMethod.DELETE, value="/{id}")
     public void delete(@PathVariable Long id) {
         this.photoRepository.delete(id);
