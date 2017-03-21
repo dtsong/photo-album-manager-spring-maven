@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Photo")
 public class Photo {
 
     @Id
@@ -22,7 +23,7 @@ public class Photo {
     private String title;
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Album.class)
-    @JoinColumn(name="ALBUM_ID", nullable = false)
+    @JoinColumn(name="ALBUM_ALBUMID", nullable = false)
     @JsonProperty
     private Long albumId;
 

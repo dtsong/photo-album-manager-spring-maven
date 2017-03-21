@@ -36,8 +36,8 @@ public class APILoader implements ApplicationListener<ContextRefreshedEvent> {
             APIObjectMapper objectMapper = new APIObjectMapper();
             List<Album> albumList = objectMapper.readAlbumJsonWithObjectMapper();
             List<Photo> photoList = objectMapper.readPhotoJsonWithObjectMapper();
-            photoRepository.save(photoList);
             albumRepository.save(albumList);
+            photoRepository.save(photoList);
         } catch (IOException e) {
             e.printStackTrace();
         }
