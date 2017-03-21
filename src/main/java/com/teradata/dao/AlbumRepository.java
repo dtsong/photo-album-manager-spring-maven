@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, Long> {
     Optional<Album> findById(Long albumId);
-    Optional<Album> findByUserId(Long userId);
     Collection<Album> findAllByOrderByIdAsc();
 }
