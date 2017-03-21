@@ -11,6 +11,9 @@ Installing:
 - mvn install
 - mvn spring-boot:run
 
+Data:
+- Data import will happen upon running the Maven project
+
 API Requests:
 - localhost:8080/albums will show all Albums in the system.
 - localhost:8080/3 will show Album with id of 3
