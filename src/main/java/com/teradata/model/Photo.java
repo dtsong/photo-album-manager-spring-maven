@@ -14,16 +14,14 @@ public class Photo {
     @JsonProperty
     private Long id;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "album_id", nullable = false)
-//    @JsonIgnore
-//    private Album album;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "albumId", insertable = false, updatable = false)
+    @JsonIgnore
+    private Album album;
 
     @JsonProperty
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Album.class)
-    @JoinColumn(name="ALBUM_ALBUMID", nullable = false)
     @JsonProperty
     private Long albumId;
 
@@ -41,25 +39,25 @@ public class Photo {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-//    public Album getAlbum() { return album; }
-//
-//    public void setAlbum(Album album) { this.album = album; }
+    public Album getAlbum() { return album; }
+
+    public void setAlbum(Album album) { this.album = album; }
 
     public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public Long getAlbumId() {
         return albumId;
     }
+
+    public void setAlbumId(Long albumId) { this.albumId = albumId; }
 
     public String getTitle() { return title; }
 
     public String getUrl() { return url; }
 
     public String getThumbnailUrl() { return thumbnailUrl; }
-
-    public void setId(Long id) { this.id = id; }
-
-    public void setAlbumId(Long albumId) { this.albumId = albumId; }
 
     public void setTitle(String title) { this.title = title; }
 

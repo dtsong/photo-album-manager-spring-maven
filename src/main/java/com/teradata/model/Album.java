@@ -24,12 +24,12 @@ public class Album {
     @JsonProperty
     private String title;
 
-    @OneToMany(mappedBy = "albumId", targetEntity = Photo.class, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "album", targetEntity = Photo.class, cascade = CascadeType.ALL)
     @JsonIgnore
-    public Set<Photo> photos = new HashSet<>();
+    private Set<Photo> photos = new HashSet<>();
 
-    public Album(Long id, Long userId, String title) {
-        this.id = id;
+    public Album(Long albumId, Long userId, String title) {
+        this.id = albumId;
         this.userId = userId;
         this.title = title;
     }
